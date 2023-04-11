@@ -33,6 +33,11 @@ button {
   transition: all 0.1s ease-in;
   margin: 1rem;
   cursor: pointer;
+  transition: 100ms;
+}
+
+button:hover {
+  scale: 1.2;
 }
 
 main {
