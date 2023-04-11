@@ -4,13 +4,20 @@ function Question({ question, onAnswered }) {
   const [timeRemaining, setTimeRemaining] = useState(10);
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => {setTimeRemaining(timeRemaining - 1) }, 1000);
-    if (timeRemaining <= 0) {
-      onAnswered(false); 
-      setTimeRemaining(10)}
-    return function cleanup() { clearTimeout(timeoutId) };
-  }
-  , [timeRemaining, onAnswered]
+    if (timeRemaining === 0) {
+      onAnswered(false);
+      setTimeRemaining(10);
+      return;
+    }
+
+    const timeoutId = setTimeout(() => {
+      setTimeRemaining((timeRemaining) => (timeRemaining - 1))
+    }, 1000);
+    
+    return function() { 
+      clearTimeout(timeoutId) 
+    }
+  }, [timeRemaining, onAnswered]
   )
 
   function handleAnswer(isCorrect) {
